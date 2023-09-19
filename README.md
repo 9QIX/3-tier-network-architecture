@@ -1,4 +1,4 @@
-# Project Documentation: CpE-301 Group 1
+# 3 Tier Network Architecture
 
 ## Table of Contents
 1. [Tier 1 – Presentation Tier Setup (nginx)](#tier-1--presentation-tier-setup-nginx)
