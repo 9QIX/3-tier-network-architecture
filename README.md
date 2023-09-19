@@ -13,19 +13,19 @@
 
 1. Install nginx:
    ```bash
-   $ sudo apt-get install nginx -y
+   sudo apt-get install nginx -y
    ```
 
-2. Check nginx status:
+2. Check Nginx status:
    ```bash
-   $ sudo systemctl status nginx
+   sudo systemctl status nginx
    ```
 
-3. Check if nginx website is working by typing localhost in your web browser. 🌐
+3. Check if the nginx website is working by typing localhost in your web browser. 🌐
 
 4. Reverse proxy nginx (put host’s IP):
    ```bash
-   $ sudo nvim /etc/nginx/sites-available/default
+   sudo nvim /etc/nginx/sites-available/default
    ```
    Add the following configuration:
    ```nginx
@@ -40,12 +40,12 @@
 
 5. Add your domain to /etc/hosts:
    ```bash
-   $ sudo nvim /etc/hosts
+   sudo nvim /etc/hosts
    ```
 
 6. Create a configuration file for your domain at /etc/nginx/conf.d/:
    ```bash
-   $ sudo nvim /etc/nginx/conf.d/softdev_project.com.conf
+   sudo nvim /etc/nginx/conf.d/softdev_project.com.conf
    ```
    Add the following configuration:
    ```nginx
@@ -76,36 +76,36 @@
 
 7. Restart nginx:
    ```bash
-   $ sudo systemctl restart nginx
+   sudo systemctl restart nginx
    ```
 
 ## Tier 2 – Application Tier Setup (apache2) 🚀
 
 1. Install apache2:
    ```bash
-   $ sudo apt install apache2
+   sudo apt install apache2
    ```
 
 2. Add 'Apache' and 'Apache Full' to the firewall list:
    ```bash
-   $ sudo ufw allow 'Apache'
-   $ sudo ufw allow 'Apache Full'
+   sudo ufw allow 'Apache'
+   sudo ufw allow 'Apache Full'
    ```
 
 3. Check Apache website.
 
 4. Setup Virtual Host (/var/www/softdev_project.com):
    ```bash
-   $ sudo mkdir /var/www/softdev_project.com
-   $ sudo chown -R USER:USER /var/www/softdev_project.com
-   $ sudo chmod -R 755 /var/www/softdev_project.com
+   sudo mkdir /var/www/softdev_project.com
+   sudo chown -R USER:USER /var/www/softdev_project.com
+   sudo chmod -R 755 /var/www/softdev_project.com
    ```
 
 5. Permissions and setup PHP web.
 
 6. Configure .conf file (/etc/apache2/sites-available/):
    ```bash
-   $ sudo nvim /etc/apache2/sites-available/softdev_project.com.conf
+   sudo nvim /etc/apache2/sites-available/softdev_project.com.conf
    ```
    Add the following configuration:
    ```apacheconf
@@ -121,8 +121,8 @@
 
 7. Enable the new .conf file and disable 000-default.conf:
    ```bash
-   $ sudo a2ensite softdev_project.com.conf
-   $ sudo a2dissite 000-default.conf
+   sudo a2ensite softdev_project.com.conf
+   sudo a2dissite 000-default.conf
    ```
 
 8. Test the new PHP website.
@@ -131,25 +131,25 @@
 
 1. Install MySQL:
    ```bash
-   $ sudo apt-get install mysql-server
+   sudo apt-get install mysql-server
    ```
 
 2. Install PHP and PHP extensions:
    ```bash
-   $ sudo apt-get install php php-cgi libapache2-mod-php php-mbstring php-all-dev
+   sudo apt-get install php php-cgi libapache2-mod-php php-mbstring php-all-dev
    ```
 
 3. Install PHP MySQL extension:
    ```bash
-   $ sudo apt-get install php8.1-mysql
+   sudo apt-get install php8.1-mysql
    ```
 
 4. Install MariaDB:
    ```bash
-   $ sudo apt install mariadb-server php-mysql
+   sudo apt install mariadb-server php-mysql
    ```
 
-5. Setup MySQL.
+5. Set up MySQL.
 
 6. Configure MySQL.
 
@@ -183,7 +183,7 @@
 
 1. Setup components (host side and client side).
 
-2. Create the share directories on the host.
+2. Create the shared directories on the host.
 
 3. Configure the NFS Exports on the Host server.
 
@@ -199,4 +199,4 @@
 
 ## Documentation 📖
 
-This documentation provides a step-by-step guide to setting up a multi-tiered application environment using nginx, Apache2, MariaDB, and NFS file sharing. Follow the instructions in each section to successfully set up your environment. 🚀🌐🛡️🔗📥📂
+This documentation provides a step-by-step guide to setting up a multi-tiered application environment using Nginx, Apache2, MariaDB, and NFS file sharing. Follow the instructions in each section to set up your environment successfully. 🚀🌐🛡️🔗📥📂
