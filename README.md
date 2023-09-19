@@ -1,34 +1,34 @@
-# 3 Tier Network Architecture
+# 3 Tier Network Architecture 🌐
 
-## Table of Contents
-1. [Tier 1 – Presentation Tier Setup (nginx)](#tier-1--presentation-tier-setup-nginx)
-2. [Tier 2 – Application Tier Setup (apache2)](#tier-2--application-tier-setup-apache2)
-3. [Tier 3 – Setup Data Tier (MariaDB and Secure phpMyAdmin)](#tier-3--setup-data-tier-mariadb-and-secure-phpmyadmin)
-4. [Connect Tier 3 (Data Tier) to Tier 2 (Application Tier)](#connect-tier-3-data-tier-to-tier-2-application-tier)
-5. [Importing Database](#importing-database)
-6. [Setup Network File Sharing (NFS)](#setup-network-file-sharing-nfs)
-7. [Documentation](#documentation)
+## Table of Contents 📚
+1. [Tier 1 – Presentation Tier Setup (nginx)](#tier-1--presentation-tier-setup-nginx) 🖥️
+2. [Tier 2 – Application Tier Setup (apache2)](#tier-2--application-tier-setup-apache2) 🚀
+3. [Tier 3 – Setup Data Tier (MariaDB and Secure phpMyAdmin)](#tier-3--setup-data-tier-mariadb-and-secure-phpmyadmin) 🛡️
+4. [Connect Tier 3 (Data Tier) to Tier 2 (Application Tier)](#connect-tier-3-data-tier-to-tier-2-application-tier) 🔗
+5. [Importing Database](#importing-database) 📥
+6. [Setup Network File Sharing (NFS)](#setup-network-file-sharing-nfs) 📂
+7. [Documentation](#documentation) 📖
 
-## Tier 1 – Presentation Tier Setup (nginx)
+## Tier 1 – Presentation Tier Setup (nginx) 🌐
 
 1. Install nginx:
-   ```
+   ```bash
    $ sudo apt-get install nginx -y
    ```
 
 2. Check nginx status:
-   ```
+   ```bash
    $ sudo systemctl status nginx
    ```
 
-3. Check if nginx website is working by typing localhost in your web browser.
+3. Check if nginx website is working by typing localhost in your web browser. 🌐
 
 4. Reverse proxy nginx (put host’s IP):
-   ```
+   ```bash
    $ sudo nvim /etc/nginx/sites-available/default
    ```
    Add the following configuration:
-   ```
+   ```nginx
    location /var/www/softdev_project.com {
        proxy_pass http://192.168.132.139;
        proxy_buffering off;
@@ -39,16 +39,16 @@
    ```
 
 5. Add your domain to /etc/hosts:
-   ```
+   ```bash
    $ sudo nvim /etc/hosts
    ```
 
 6. Create a configuration file for your domain at /etc/nginx/conf.d/:
-   ```
+   ```bash
    $ sudo nvim /etc/nginx/conf.d/softdev_project.com.conf
    ```
    Add the following configuration:
-   ```
+   ```nginx
    upstream softdev-project.com {
        server 192.168.132.139 fail_timeout=0;
        server 192.168.132.149 backup;
@@ -75,19 +75,19 @@
    ```
 
 7. Restart nginx:
-   ```
+   ```bash
    $ sudo systemctl restart nginx
    ```
 
-## Tier 2 – Application Tier Setup (apache2)
+## Tier 2 – Application Tier Setup (apache2) 🚀
 
 1. Install apache2:
-   ```
+   ```bash
    $ sudo apt install apache2
    ```
 
 2. Add 'Apache' and 'Apache Full' to the firewall list:
-   ```
+   ```bash
    $ sudo ufw allow 'Apache'
    $ sudo ufw allow 'Apache Full'
    ```
@@ -95,7 +95,7 @@
 3. Check Apache website.
 
 4. Setup Virtual Host (/var/www/softdev_project.com):
-   ```
+   ```bash
    $ sudo mkdir /var/www/softdev_project.com
    $ sudo chown -R USER:USER /var/www/softdev_project.com
    $ sudo chmod -R 755 /var/www/softdev_project.com
@@ -104,11 +104,11 @@
 5. Permissions and setup PHP web.
 
 6. Configure .conf file (/etc/apache2/sites-available/):
-   ```
+   ```bash
    $ sudo nvim /etc/apache2/sites-available/softdev_project.com.conf
    ```
    Add the following configuration:
-   ```
+   ```apacheconf
    <VirtualHost *:80>
        ServerAdmin webmaster@localhost
        ServerName softdev_project.com
@@ -120,32 +120,32 @@
    ```
 
 7. Enable the new .conf file and disable 000-default.conf:
-   ```
+   ```bash
    $ sudo a2ensite softdev_project.com.conf
    $ sudo a2dissite 000-default.conf
    ```
 
 8. Test the new PHP website.
 
-## Tier 3 – Setup Data Tier (MariaDB and Secure phpMyAdmin)
+## Tier 3 – Setup Data Tier (MariaDB and Secure phpMyAdmin) 🛡️
 
 1. Install MySQL:
-   ```
+   ```bash
    $ sudo apt-get install mysql-server
    ```
 
 2. Install PHP and PHP extensions:
-   ```
+   ```bash
    $ sudo apt-get install php php-cgi libapache2-mod-php php-mbstring php-all-dev
    ```
 
 3. Install PHP MySQL extension:
-   ```
+   ```bash
    $ sudo apt-get install php8.1-mysql
    ```
 
 4. Install MariaDB:
-   ```
+   ```bash
    $ sudo apt install mariadb-server php-mysql
    ```
 
@@ -159,7 +159,7 @@
 
 9. Test localhost/phpMyAdmin.
 
-## Connect Tier 3 (Data Tier) to Tier 2 (Application Tier)
+## Connect Tier 3 (Data Tier) to Tier 2 (Application Tier) 🔗
 
 1. Whitelist the IP address of Tier 2 (Application Tier) to Tier 3 (Data Tier).
 
@@ -167,7 +167,7 @@
 
 3. Change "bind-address = 127.0.0.1" to "bind-address = 0.0.0.0".
 
-## Importing Database
+## Importing Database 📥
 
 1. Access and show the database by logging into your remote account.
 
@@ -179,7 +179,7 @@
 
 5. Test the website.
 
-## Setup Network File Sharing (NFS)
+## Setup Network File Sharing (NFS) 📂
 
 1. Setup components (host side and client side).
 
@@ -197,6 +197,6 @@
 
 8. Mount the remote NFS directories at boot.
 
-## Documentation
+## Documentation 📖
 
-This documentation provides a step-by-step guide to setting up a multi-tiered application environment using nginx, Apache2, MariaDB, and NFS file sharing. It includes instructions for configuring the presentation tier, application tier, data tier, and network file sharing, as well as importing databases and connecting the tiers. Follow the instructions in each section to successfully set up your environment.
+This documentation provides a step-by-step guide to setting up a multi-tiered application environment using nginx, Apache2, MariaDB, and NFS file sharing. Follow the instructions in each section to successfully set up your environment. 🚀🌐🛡️🔗📥📂
