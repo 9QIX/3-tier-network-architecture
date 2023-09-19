@@ -1,4 +1,4 @@
-# 3 Tier Network Architecture 🌐
+# 3 - Tier Architecture in Networking 🌐
 
 ## Table of Contents 📚
 1. [Tier 1 – Presentation Tier Setup (nginx)](#tier-1--presentation-tier-setup-nginx) 🖥️
